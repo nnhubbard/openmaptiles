@@ -1,0 +1,48 @@
+tables:
+  # etldoc: imposm3 -> osm_power_linestring
+  power_linestring:
+    type: linestring
+    fields:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - key: power
+      name: class
+      type: string
+    mapping:
+      power:
+      - line
+
+  # etldoc: imposm3 -> osm_power_point
+  power_point:
+    type: point
+    fields:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - key: power
+      name: class
+      type: string
+    mapping:
+      power:
+      - tower
+
+  # etldoc: imposm3 -> osm_power_point
+  power_polygon:
+    type: polygon
+    fields:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - key: power
+      name: class
+      type: string
+    mapping:
+      power:
+      - substation
+      - plant
+      - generator
+      - switchgear
