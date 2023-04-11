@@ -13,6 +13,7 @@ tables:
     mapping:
       power:
       - line
+      - minor_line
 
   # etldoc: imposm3 -> osm_power_point
   power_point:

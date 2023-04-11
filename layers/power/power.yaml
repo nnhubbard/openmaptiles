@@ -12,6 +12,7 @@ layer:
           [`power`](http://wiki.openstreetmap.org/wiki/Key:power) tag.
       values:
       - line
+      - minor_line
       - tower
       - substation
       - generator
