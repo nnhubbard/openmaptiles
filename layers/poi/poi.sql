@@ -16,7 +16,9 @@ CREATE OR REPLACE FUNCTION layer_poi(bbox geometry, zoom_level integer, pixel_wi
                 layer    integer,
                 level    integer,
                 indoor   integer,
-                "rank"   int
+                "rank"   int,
+                "height" text,
+                access   text
             )
 AS
 $$
@@ -34,6 +36,8 @@ SELECT osm_id_hash AS osm_id,
                THEN NULLIF(religion, '')
            WHEN subclass = 'pitch'
                THEN NULLIF(sport, '')
+           WHEN tags->'waterway' = 'waterfall'
+               THEN 'waterfall'
            ELSE subclass
            END AS subclass,
        agg_stop,
@@ -43,7 +47,9 @@ SELECT osm_id_hash AS osm_id,
        row_number() OVER (
            PARTITION BY LabelGrid(geometry, 100 * pixel_width)
            ORDER BY CASE WHEN name = '' THEN 2000 ELSE poi_class_rank(poi_class(subclass, mapping_key)) END ASC
-           )::int AS "rank"
+           )::int AS "rank",
+       NULLIF(height, '') AS height,
+       CASE WHEN access IN ('private', 'no') THEN 'no' END AS access
 FROM (
          -- etldoc: osm_poi_point ->  layer_poi:z12
          -- etldoc: osm_poi_point ->  layer_poi:z13

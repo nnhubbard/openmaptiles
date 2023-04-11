@@ -96,6 +96,10 @@ layer:
           subclass: ['castle', 'ruins']
         atm:
           subclass: ['atm']
+        waterfall:
+          subclass: ['waterfall']
+        building:
+          subclass: ['university']
     subclass:
       description: |
           Original value of either the
@@ -141,12 +145,22 @@ layer:
           Original value of [`indoor`](http://wiki.openstreetmap.org/wiki/Key:indoor) tag.
       values:
       - 1
+    height:
+      description: |
+          Original value of [`height`](http://wiki.openstreetmap.org/wiki/Key:height) tag.
+    access:
+      description: |
+          Access restrictions on this POI.  Supported values of the
+          [`access`](http://wiki.openstreetmap.org/wiki/Key:access) tag are `no` and `private`,
+          which resolve to `no`.
+      values:
+      - no
   datasource:
     geometry_field: geometry
     key_field: osm_id
     key_field_as_attribute: no
     srid: 900913
-    query: (SELECT osm_id, geometry, name, name_en, name_de, {name_languages}, class, subclass, agg_stop, layer, level, indoor, rank FROM layer_poi(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
+    query: (SELECT osm_id, geometry, name, name_en, name_de, {name_languages}, class, subclass, agg_stop, layer, level, indoor, rank, height, access FROM layer_poi(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
 schema:
   - ./public_transport_stop_type.sql
   - ./class.sql
