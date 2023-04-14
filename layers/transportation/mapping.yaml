@@ -335,6 +335,7 @@ tables:
       - light_rail
       - monorail
       - tram
+      - disused
 
 # etldoc: imposm3 -> osm_aerialway_linestring
   aerialway_linestring:

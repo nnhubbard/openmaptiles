@@ -496,7 +496,7 @@ FROM (
                 z_order
          FROM osm_railway_linestring_gen_z10
          WHERE zoom_level = 10
-           AND railway IN ('rail', 'narrow_gauge')
+           AND railway IN ('rail', 'narrow_gauge', 'disused')
            AND service = ''
          UNION ALL
 
@@ -531,7 +531,7 @@ FROM (
                 z_order
          FROM osm_railway_linestring_gen_z11
          WHERE zoom_level = 11
-           AND railway IN ('rail', 'narrow_gauge', 'light_rail')
+           AND railway IN ('rail', 'narrow_gauge', 'light_rail', 'disused')
            AND service = ''
          UNION ALL
 
@@ -566,7 +566,7 @@ FROM (
                 z_order
          FROM osm_railway_linestring_gen_z12
          WHERE zoom_level = 12
-           AND railway IN ('rail', 'narrow_gauge', 'light_rail')
+           AND railway IN ('rail', 'narrow_gauge', 'light_rail', 'disused')
            AND service = ''
          UNION ALL
 
@@ -602,7 +602,7 @@ FROM (
                 z_order
          FROM osm_railway_linestring
          WHERE zoom_level = 13
-           AND railway IN ('rail', 'narrow_gauge', 'light_rail')
+           AND railway IN ('rail', 'narrow_gauge', 'light_rail', 'disused')
            AND service = ''
            OR zoom_level >= 14
          UNION ALL
