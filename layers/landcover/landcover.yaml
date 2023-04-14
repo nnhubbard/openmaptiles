@@ -49,6 +49,7 @@ layer:
       - shrubbery
       - farm
       - farmland
+      - farmyard
       - fell
       - forest
       - garden
@@ -57,6 +58,7 @@ layer:
       - grassland
       - golf_course
       - heath
+      - landfill
       - mangrove
       - marsh
       - meadow
