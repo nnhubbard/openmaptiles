@@ -39,6 +39,7 @@ tileset:
     - is # Icelandic, Latin
     - it # Italian, Latin
     - ja # Japanese
+    - ja-Latn # romanisation of Japanese, Latin since 2018
     - nl # Dutch, Latin
     - "no" # Norwegian, Latin
     - pl # Polish, Latin
