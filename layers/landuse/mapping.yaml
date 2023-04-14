@@ -81,6 +81,7 @@ tables:
       - industrial
       - garages
       - retail
+      - winter_sports
       amenity:
       - bus_station
       - school
