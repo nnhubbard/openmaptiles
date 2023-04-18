@@ -182,3 +182,29 @@ tables:
       - quarter
       - neighbourhood
       - isolated_dwelling
+      
+  county_point:
+    type: point
+    fields:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - *name
+    - *name_en
+    - *name_de
+    - name: tags
+      type: hstore_tags
+    - name: is_in_county
+      key: is_in:county
+      type: string
+    - name: ref
+      key: ref
+      type: string
+    - *rank
+    filters:
+      require:
+        name: ["__any__"]
+    mapping:
+      place:
+      - county

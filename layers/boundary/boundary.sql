@@ -110,7 +110,7 @@ CREATE MATERIALIZED VIEW osm_border_linestring_gen_z8 AS
 (
 SELECT ST_Simplify(geometry, ZRes(9)) AS geometry, adm0_l, adm0_r, admin_level, disputed, name, claimed_by, maritime
 FROM osm_border_linestring_gen_z9
-WHERE admin_level BETWEEN 2 AND 4
+WHERE admin_level BETWEEN 2 AND 6
     ) /* DELAY_MATERIALIZED_VIEW_CREATION */ ;
 CREATE INDEX IF NOT EXISTS osm_border_linestring_gen_z8_idx ON osm_border_linestring_gen_z8 USING gist (geometry);
 
@@ -517,7 +517,7 @@ SELECT geometry,
        claimed_by,
        maritime
 FROM osm_border_linestring_gen_z6
-WHERE admin_level <= 4
+WHERE admin_level <= 6
     );
 
 -- etldoc: osm_border_linestring_gen_z7 -> boundary_z7

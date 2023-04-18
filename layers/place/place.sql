@@ -98,6 +98,22 @@ FROM (
            AND geometry && bbox
 
          UNION ALL
+         
+        -- etldoc: osm_county_point  -> layer_place:z0_3
+        -- etldoc: osm_county_point  -> layer_place:z4_7
+        -- etldoc: osm_county_point  -> layer_place:z8_11
+        -- etldoc: osm_county_point  -> layer_place:z12_14
+        SELECT
+            osm_id*10, geometry, name,
+            COALESCE(NULLIF(name_en, ''), name) AS name_en,
+            COALESCE(NULLIF(name_de, ''), name, name_en) AS name_de,
+            tags,
+            'county' AS class, "rank", NULL::int AS capital,
+            NULL::text AS iso_a2
+        FROM osm_county_point
+        WHERE geometry && bbox AND
+              name <> '' AND zoom_level >= 6
+        UNION ALL
 
          SELECT
              -- etldoc: osm_island_polygon  -> layer_place:z8_11
