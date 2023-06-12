@@ -1,26 +1,3 @@
-CREATE OR REPLACE FUNCTION length_formatted_text(geometry geometry, metric boolean) RETURNS text AS
-$$
-SELECT CASE
-		WHEN ST_IsValid(geometry) 
-			THEN CASE
-				WHEN metric = true THEN ROUND((ST_Length(geometry)/1000)::numeric,2)::text
-				WHEN metric = false THEN ROUND((ST_Length(geometry)/1609.344)::numeric,2)::text
-				END
-	END;
-$$ LANGUAGE SQL IMMUTABLE
-                STRICT
-                PARALLEL SAFE;
-                
-CREATE OR REPLACE FUNCTION length_text(geometry geometry) RETURNS text AS
-$$
-SELECT CASE
-		WHEN ST_IsValid(geometry) 
-			THEN TRUNC(ST_Length(geometry))::text
-	END;
-$$ LANGUAGE SQL IMMUTABLE
-                STRICT
-                PARALLEL SAFE;
-
 CREATE OR REPLACE FUNCTION layer_hiking_biking(bbox geometry, zoom_level int)
 RETURNS TABLE(geometry geometry, 
 	name text,
@@ -35,10 +12,7 @@ RETURNS TABLE(geometry geometry,
 	osmcsymbol_text text,
 	osmcsymbol_text_color text,
 	route text, 
-	network text,
-	length_m text,
-	length_mi text,
-	length_km text) AS $$
+	network text) AS $$
     	
     SELECT geometry, 
     CASE WHEN length(name) > 15 THEN osml10n_street_abbrev_all(name) ELSE NULLIF(name, '') END AS "name",
@@ -53,10 +27,7 @@ RETURNS TABLE(geometry geometry,
 	NULLIF(SPLIT_PART(osmcsymbol,':', 5), '') AS osmcsymbol_text,
 	NULLIF(SPLIT_PART(osmcsymbol,':', 6), '') AS osmcsymbol_text_color,
     NULLIF(route, ''), 
-    NULLIF(network, ''),
-   	length_text(geometry) AS length_m,
-   	length_formatted_text(geometry, false) AS length_mi,
-   	length_formatted_text(geometry, true) AS length_km
+    NULLIF(network, '')
     FROM osm_hiking_biking_relation
     WHERE zoom_level >= 14 AND geometry && bbox
     UNION ALL
@@ -74,10 +45,7 @@ RETURNS TABLE(geometry geometry,
 	NULLIF(SPLIT_PART(osmcsymbol,':', 5), '') AS osmcsymbol_text,
 	NULLIF(SPLIT_PART(osmcsymbol,':', 6), '') AS osmcsymbol_text_color,
     NULLIF(route, ''), 
-    NULLIF(network, ''),
-   	length_text(geometry) AS length_m,
-   	length_formatted_text(geometry, false) AS length_mi,
-   	length_formatted_text(geometry, true) AS length_km
+    NULLIF(network, '')
     FROM osm_hiking_biking_linestring
     WHERE zoom_level >= 14 
     	AND geometry && bbox 

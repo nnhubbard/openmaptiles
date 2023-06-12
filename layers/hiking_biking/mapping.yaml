@@ -43,12 +43,6 @@ tables:
     - name: network
       key: network
       type: string
-    - name: length_m
-      type: string
-    - name: length_mi
-      type: string
-    - name: length_km
-      type: string
     relation_types: [route]
     mapping:
       route:
@@ -98,12 +92,6 @@ tables:
       type: string
     - name: network
       key: network
-      type: string
-    - name: length_m
-      type: string
-    - name: length_mi
-      type: string
-    - name: length_km
       type: string
     mapping:
       highway:

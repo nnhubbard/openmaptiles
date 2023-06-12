@@ -44,19 +44,10 @@ layer:
     network:
       description: |
           Network that the route is part of
-    length_m:
-      description: |
-          Length of route in meters
-    length_mi:
-      description: |
-          Length of route in miles
-    length_km:
-      description: |
-          Length of route in kilometers
   datasource:
     geometry_field: geometry
     srid: 900913
-    query: (SELECT geometry, name, name_alt, name_en, name_de, osmcsymbol, osmcsymbol_way_color, osmcsymbol_background, osmcsymbol_foreground, osmcsymbol_foreground2, osmcsymbol_text, osmcsymbol_text_color, route, length_m, length_mi, length_km, network FROM layer_hiking_biking(!bbox!, z(!scale_denominator!))) AS t
+    query: (SELECT geometry, name, name_alt, name_en, name_de, osmcsymbol, osmcsymbol_way_color, osmcsymbol_background, osmcsymbol_foreground, osmcsymbol_foreground2, osmcsymbol_text, osmcsymbol_text_color, route, network FROM layer_hiking_biking(!bbox!, z(!scale_denominator!))) AS t
 schema:
   - ./hiking_biking.sql
 datasources:
