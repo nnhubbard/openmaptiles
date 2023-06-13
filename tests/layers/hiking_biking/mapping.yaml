@@ -1,0 +1,111 @@
+tables:
+  # etldoc: imposm3 -> osm_hiking_biking_relation
+  hiking_biking_relation:
+    type: relation_member
+    columns:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - name: name
+      key: name
+      type: string
+    - name: name_alt
+      key: name
+      type: string
+      from_member: true
+    - name: name_en
+      key: name:en
+      type: string
+      from_member: true
+    - name: name_de
+      key: name:de
+      type: string
+      from_member: true
+    - name: osmcsymbol
+      key: osmc:symbol
+      type: string
+    - name: osmcsymbol_way_color
+      type: string
+    - name: osmcsymbol_background
+      type: string
+    - name: osmcsymbol_foreground
+      type: string
+    - name: osmcsymbol_foreground2
+      type: string
+    - name: osmcsymbol_text
+      type: string
+    - name: osmcsymbol_text_color
+      type: string
+    - name: route
+      key: route
+      type: string
+    - name: network
+      key: network
+      type: string
+    - name: length_m
+      type: string
+    - name: length_mi
+      type: string
+    - name: length_km
+      type: string
+    relation_types: [route]
+    mapping:
+      route:
+      - hiking
+      - biking
+      
+  # etldoc: imposm3 -> osm_hiking_biking_linestring
+  hiking_biking_linestring:
+    type: linestring
+    columns:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - name: name
+      key: name
+      type: string
+    - name: name_alt
+      key: name
+      type: string
+      from_member: true
+    - name: name_en
+      key: name:en
+      type: string
+      from_member: true
+    - name: name_de
+      key: name:de
+      type: string
+      from_member: true
+    - name: osmcsymbol
+      key: osmc:symbol
+      type: string
+    - name: osmcsymbol_way_color
+      type: string
+    - name: osmcsymbol_background
+      type: string
+    - name: osmcsymbol_foreground
+      type: string
+    - name: osmcsymbol_foreground2
+      type: string
+    - name: osmcsymbol_text
+      type: string
+    - name: osmcsymbol_text_color
+      type: string
+    - name: route
+      key: route
+      type: string
+    - name: network
+      key: network
+      type: string
+    - name: length_m
+      type: string
+    - name: length_mi
+      type: string
+    - name: length_km
+      type: string
+    mapping:
+      highway:
+      - path
+      - track

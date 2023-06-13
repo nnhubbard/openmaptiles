@@ -1,0 +1,64 @@
+layer:
+  id: "hiking_biking"
+  description: |
+      **hiking_biking** contains hiking and biking route information and symbols.
+  buffer_size: 4
+  srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  fields:
+    name:
+      description: |
+          Name of route relation
+    name_alt:
+      description: |
+          Name of path
+    name_en:
+      description: |
+          Name of path in en
+    name_de:
+      description: |
+          Name of path in de
+    osmcsymbol:
+      description: |
+          Symbol of route
+    osmcsymbol_way_color:
+      description: |
+          Symbol way color
+    osmcsymbol_background:
+      description: |
+          Symbol background
+    osmcsymbol_foreground:
+      description: |
+          Symbol foreground
+    osmcsymbol_foreground2:
+      description: |
+          Symbol foreground2
+    osmcsymbol_text:
+      description: |
+          Symbol text
+    osmcsymbol_text_color:
+      description: |
+          Symbol text color
+    route:
+      description: |
+          Route type
+    network:
+      description: |
+          Network that the route is part of
+    length_m:
+      description: |
+          Length of route in meters
+    length_mi:
+      description: |
+          Length of route in miles
+    length_km:
+      description: |
+          Length of route in kilometers
+  datasource:
+    geometry_field: geometry
+    srid: 900913
+    query: (SELECT geometry, name, name_alt, name_en, name_de, osmcsymbol, osmcsymbol_way_color, osmcsymbol_background, osmcsymbol_foreground, osmcsymbol_foreground2, osmcsymbol_text, osmcsymbol_text_color, route, length_m, length_mi, length_km, network FROM layer_hiking_biking(!bbox!, z(!scale_denominator!))) AS t
+schema:
+  - ./hiking_biking.sql
+datasources:
+  - type: imposm3
+    mapping_file: ./mapping.yaml
