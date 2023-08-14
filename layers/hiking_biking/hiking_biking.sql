@@ -81,6 +81,9 @@ RETURNS TABLE(geometry geometry,
     FROM osm_hiking_biking_linestring
     WHERE zoom_level >= 14 
     	AND geometry && bbox 
-    	AND osmcsymbol = '' OR osmcsymbol IS NULL
+    	AND (osmcsymbol = '' OR osmcsymbol IS NULL)
     
 $$ LANGUAGE SQL IMMUTABLE;
+
+-- Create partial index on geometry to speed up query
+create index osm_hiking_biking_linestring_geom_filtered on osm_hiking_biking_linestring using GIST(geometry) where osmcsymbol = '' OR osmcsymbol IS NULL;
