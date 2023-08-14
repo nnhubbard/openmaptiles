@@ -21,6 +21,23 @@ $$ LANGUAGE SQL IMMUTABLE
                 STRICT
                 PARALLEL SAFE;
 
+
+-- Delete ways that are part of a relation
+DELETE FROM osm_hiking_biking_linestring
+WHERE osm_id IN (SELECT osm_id FROM osm_hiking_biking_relation_members);
+
+-- Precalculate lengths for all geometries
+ALTER TABLE osm_hiking_biking_linestring ADD COLUMN IF NOT EXISTS length_mi text;
+ALTER TABLE osm_hiking_biking_linestring ADD COLUMN IF NOT EXISTS length_km text;
+ALTER TABLE osm_hiking_biking_linestring ADD COLUMN IF NOT EXISTS length_m text;
+UPDATE osm_hiking_biking_linestring SET length_mi = length_formatted_text(geometry, false), length_km = length_formatted_text(geometry, true), length_m = length_text(geometry);
+
+ALTER TABLE osm_hiking_biking_relation ADD COLUMN IF NOT EXISTS length_mi text;
+ALTER TABLE osm_hiking_biking_relation ADD COLUMN IF NOT EXISTS length_km text;
+ALTER TABLE osm_hiking_biking_relation ADD COLUMN IF NOT EXISTS length_m text;
+UPDATE osm_hiking_biking_relation SET length_mi = length_formatted_text(geometry, false), length_km = length_formatted_text(geometry, true), length_m = length_text(geometry);
+
+-- Function for layer query
 CREATE OR REPLACE FUNCTION layer_hiking_biking(bbox geometry, zoom_level int)
 RETURNS TABLE(geometry geometry, 
 	name text,
@@ -54,9 +71,9 @@ RETURNS TABLE(geometry geometry,
 	NULLIF(SPLIT_PART(osmcsymbol,':', 6), '') AS osmcsymbol_text_color,
     NULLIF(route, ''), 
     NULLIF(network, ''),
-   	length_text(geometry) AS length_m,
-   	length_formatted_text(geometry, false) AS length_mi,
-   	length_formatted_text(geometry, true) AS length_km
+   	length_m,
+   	length_mi,
+   	length_km
     FROM osm_hiking_biking_relation
     WHERE zoom_level >= 14 AND geometry && bbox
     UNION ALL
@@ -75,15 +92,10 @@ RETURNS TABLE(geometry geometry,
 	NULLIF(SPLIT_PART(osmcsymbol,':', 6), '') AS osmcsymbol_text_color,
     NULLIF(route, ''), 
     NULLIF(network, ''),
-   	length_text(geometry) AS length_m,
-   	length_formatted_text(geometry, false) AS length_mi,
-   	length_formatted_text(geometry, true) AS length_km
+   	length_m,
+   	length_mi,
+   	length_km
     FROM osm_hiking_biking_linestring
-    WHERE zoom_level >= 14 
-    	AND geometry && bbox 
-    	AND (osmcsymbol = '' OR osmcsymbol IS NULL)
+    WHERE zoom_level >= 14 AND geometry && bbox 
     
 $$ LANGUAGE SQL IMMUTABLE;
-
--- Create partial index on geometry to speed up query
-create index osm_hiking_biking_linestring_geom_filtered on osm_hiking_biking_linestring using GIST(geometry) where osmcsymbol = '' OR osmcsymbol IS NULL;
