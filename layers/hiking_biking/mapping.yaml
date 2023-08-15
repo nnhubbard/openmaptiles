@@ -3,8 +3,10 @@ tables:
   hiking_biking_relation:
     type: relation_member
     columns:
-    - name: osm_id
+    - name: relation_id
       type: id
+    - name: way_id
+      type: member_id
     - name: geometry
       type: geometry
     - name: name
@@ -73,13 +75,3 @@ tables:
       highway:
       - path
       - track
-  
-  hiking_biking_relation_members:
-    type: relation_members
-    mapping:
-      route:
-      - hiking
-      - biking
-    columns:
-     - name: osm_id
-       type: id

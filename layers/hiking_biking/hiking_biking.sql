@@ -24,7 +24,7 @@ $$ LANGUAGE SQL IMMUTABLE
 
 -- Delete ways that are part of a relation
 DELETE FROM osm_hiking_biking_linestring
-WHERE osm_id IN (SELECT osm_id FROM osm_hiking_biking_relation_members);
+WHERE osm_id IN (SELECT way_id FROM osm_hiking_biking_relation);
 
 -- Precalculate lengths for all geometries
 ALTER TABLE osm_hiking_biking_linestring ADD COLUMN IF NOT EXISTS length_mi text;
