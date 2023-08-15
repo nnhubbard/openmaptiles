@@ -85,5 +85,16 @@ RETURNS TABLE(geometry geometry,
     
 $$ LANGUAGE SQL IMMUTABLE;
 
+-- Precalculate lengths for all geometries
+ ALTER TABLE osm_hiking_biking_linestring ADD COLUMN IF NOT EXISTS length_mi text;
+ ALTER TABLE osm_hiking_biking_linestring ADD COLUMN IF NOT EXISTS length_km text;
+ ALTER TABLE osm_hiking_biking_linestring ADD COLUMN IF NOT EXISTS length_m text;
+ UPDATE osm_hiking_biking_linestring SET length_mi = length_formatted_text(geometry, false), length_km = length_formatted_text(geometry, true), length_m = length_text(geometry);
+
+ ALTER TABLE osm_hiking_biking_relation ADD COLUMN IF NOT EXISTS length_mi text;
+ ALTER TABLE osm_hiking_biking_relation ADD COLUMN IF NOT EXISTS length_km text;
+ ALTER TABLE osm_hiking_biking_relation ADD COLUMN IF NOT EXISTS length_m text;
+ UPDATE osm_hiking_biking_relation SET length_mi = length_formatted_text(geometry, false), length_km = length_formatted_text(geometry, true), length_m = length_text(geometry);
+
 -- Create partial index on geometry to speed up query
 create index osm_hiking_biking_linestring_geom_filtered on osm_hiking_biking_linestring using GIST(geometry) where osmcsymbol = '' OR osmcsymbol IS NULL;
