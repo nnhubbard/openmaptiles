@@ -3,8 +3,10 @@ tables:
   hiking_biking_relation:
     type: relation_member
     columns:
-    - name: osm_id
+    - name: relation_id
       type: id
+    - name: way_id
+      type: member_id
     - name: geometry
       type: geometry
     - name: name
@@ -24,18 +26,6 @@ tables:
       from_member: true
     - name: osmcsymbol
       key: osmc:symbol
-      type: string
-    - name: osmcsymbol_way_color
-      type: string
-    - name: osmcsymbol_background
-      type: string
-    - name: osmcsymbol_foreground
-      type: string
-    - name: osmcsymbol_foreground2
-      type: string
-    - name: osmcsymbol_text
-      type: string
-    - name: osmcsymbol_text_color
       type: string
     - name: route
       key: route
@@ -74,18 +64,6 @@ tables:
       from_member: true
     - name: osmcsymbol
       key: osmc:symbol
-      type: string
-    - name: osmcsymbol_way_color
-      type: string
-    - name: osmcsymbol_background
-      type: string
-    - name: osmcsymbol_foreground
-      type: string
-    - name: osmcsymbol_foreground2
-      type: string
-    - name: osmcsymbol_text
-      type: string
-    - name: osmcsymbol_text_color
       type: string
     - name: route
       key: route

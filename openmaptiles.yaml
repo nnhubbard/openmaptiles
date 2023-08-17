@@ -1,5 +1,6 @@
 tileset:
   layers:
+    - layers/hiking_biking/hiking_biking.yaml
     - layers/skiing/skiing.yaml
     - layers/power/power.yaml
     - layers/water/water.yaml
