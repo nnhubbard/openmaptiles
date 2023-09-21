@@ -9,21 +9,6 @@ tables:
       type: member_id
     - name: geometry
       type: geometry
-    - name: name
-      key: name
-      type: string
-    - name: name_alt
-      key: name
-      type: string
-      from_member: true
-    - name: name_en
-      key: name:en
-      type: string
-      from_member: true
-    - name: name_de
-      key: name:de
-      type: string
-      from_member: true
     - name: osmcsymbol
       key: osmc:symbol
       type: string
@@ -47,21 +32,6 @@ tables:
       type: id
     - name: geometry
       type: geometry
-    - name: name
-      key: name
-      type: string
-    - name: name_alt
-      key: name
-      type: string
-      from_member: true
-    - name: name_en
-      key: name:en
-      type: string
-      from_member: true
-    - name: name_de
-      key: name:de
-      type: string
-      from_member: true
     - name: osmcsymbol
       key: osmc:symbol
       type: string
