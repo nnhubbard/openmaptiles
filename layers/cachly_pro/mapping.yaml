@@ -1,0 +1,13 @@
+tables:
+  # etldoc: imposm3 -> osm_cachly_pro_linestring
+  cachly_pro_linestring:
+    type: linestring
+    columns:
+    - name: geometry
+      type: geometry
+    - key: historic
+      name: historic
+      type: string
+    mapping:
+      historic:
+      - castle_wall
