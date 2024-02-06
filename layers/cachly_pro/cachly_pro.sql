@@ -6,6 +6,6 @@ RETURNS TABLE(geometry geometry,
     SELECT geometry, 
     historic
     FROM osm_cachly_pro_linestring
-    WHERE zoom_level >= 10 AND geometry && bbox 
+    WHERE zoom_level >= 14 AND geometry && bbox 
     
 $$ LANGUAGE SQL IMMUTABLE;
