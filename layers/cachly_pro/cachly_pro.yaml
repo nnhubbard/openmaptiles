@@ -10,10 +10,14 @@ layer:
           Distinguish between types
       values:
       - castle_wall
+      - castle
+    building:
+      description: |
+          Distinguish between types
   datasource:
     geometry_field: geometry
     srid: 900913
-    query: (SELECT geometry, historic FROM layer_cachly_pro(!bbox!, z(!scale_denominator!))) AS t
+    query: (SELECT geometry, historic, building FROM layer_cachly_pro(!bbox!, z(!scale_denominator!))) AS t
 schema:
   - ./cachly_pro.sql
 datasources:
