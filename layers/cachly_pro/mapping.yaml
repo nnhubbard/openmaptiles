@@ -8,6 +8,9 @@ tables:
     - key: historic
       name: historic
       type: string
+    - key: barrier
+      name: barrier
+      type: string
     - name: building
       key: building
       type: string
@@ -15,6 +18,8 @@ tables:
       historic:
       - castle_wall
       - castle
+      barrier:
+      - city_wall
 
   # etldoc: imposm3 -> osm_cachly_pro_polygon
   cachly_pro_polygon:
@@ -24,6 +29,9 @@ tables:
       type: geometry
     - key: historic
       name: historic
+      type: string
+    - key: barrier
+      name: barrier
       type: string
     - name: building
       key: building
