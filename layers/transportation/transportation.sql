@@ -379,8 +379,8 @@ FROM (
                               WHEN hl.highway IN ('track', 'path') THEN TRUE
                          END
                     WHEN zoom_level = 13 THEN
-                         CASE WHEN man_made='pier' THEN NOT ST_IsClosed(hl.geometry)
-                              WHEN hl.highway IN ('track', 'path') THEN TRUE
+                         CASE WHEN hl.highway IN ('track', 'path') THEN TRUE
+                              WHEN man_made='pier' THEN NOT ST_IsClosed(hl.geometry)
                               ELSE transportation_filter_z13(hl.highway, public_transport, hl.construction, service)
                          END
                     WHEN zoom_level >= 14 THEN
