@@ -45,3 +45,6 @@ tables:
       highway:
       - path
       - track
+      - cycleway
+      - bridleway
+      - footway
