@@ -376,11 +376,16 @@ FROM (
            AND
                CASE WHEN zoom_level = 12 THEN
                          CASE WHEN transportation_filter_z12(hl.highway, hl.construction) THEN TRUE
-                              WHEN hl.highway IN ('track', 'path') THEN TRUE
+                              WHEN hl.highway IN ('track') THEN n.route_rank = 1
+                              WHEN hl.highway IN ('path') THEN TRUE
                          END
                     WHEN zoom_level = 13 THEN
-                         CASE WHEN hl.highway IN ('track', 'path') THEN TRUE
-                              WHEN man_made='pier' THEN NOT ST_IsClosed(hl.geometry)
+                         CASE WHEN man_made='pier' THEN NOT ST_IsClosed(hl.geometry)
+                         	  WHEN hl.highway IN ('path') THEN TRUE
+                              WHEN hl.highway IN ('track') THEN (hl.name <> ''
+                                                                   OR n.route_rank BETWEEN 1 AND 2
+                                                                   OR hl.sac_scale <> ''
+                                                                   )
                               ELSE transportation_filter_z13(hl.highway, public_transport, hl.construction, service)
                          END
                     WHEN zoom_level >= 14 THEN
