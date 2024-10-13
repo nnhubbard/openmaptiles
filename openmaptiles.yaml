@@ -1,9 +1,5 @@
 tileset:
   layers:
-    - layers/cachly_pro/cachly_pro.yaml
-    - layers/hiking_biking/hiking_biking.yaml
-    - layers/skiing/skiing.yaml
-    - layers/power/power.yaml
     - layers/water/water.yaml
     - layers/waterway/waterway.yaml
     - layers/landcover/landcover.yaml
