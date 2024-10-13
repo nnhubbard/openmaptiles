@@ -2,7 +2,7 @@ tables:
   # etldoc: imposm3 -> osm_skiing_linestring
   skiing_linestring:
     type: linestring
-    fields:
+    columns:
     - name: osm_id
       type: id
     - name: geometry
@@ -53,7 +53,7 @@ tables:
   # etldoc: imposm3 -> osm_skiing_point
   skiing_point:
     type: point
-    fields:
+    columns:
     - name: osm_id
       type: id
     - name: geometry
