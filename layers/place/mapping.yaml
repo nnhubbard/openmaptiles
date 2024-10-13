@@ -185,7 +185,7 @@ tables:
       
   county_point:
     type: point
-    fields:
+    columns:
     - name: osm_id
       type: id
     - name: geometry
